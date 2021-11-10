@@ -7,6 +7,16 @@ let reload = document.querySelector('.reload');
 let winner = document.querySelector('.winner')
 
 
+userChoice.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+
+    event.preventDefault();
+
+    play.click();
+  }
+});
+
+
 const getUserChoice = (userChoice) => {
     userChoice = userChoice.toLowerCase();   
 }
@@ -62,27 +72,37 @@ const getComputerChoice = () => {
       return 'Congratulations, You won!'
     }
   };
-  
-
+   
 
 play.addEventListener('click', () => {
     userChoice = userChoice.value;
     console.log(userChoice);
 
-    if (userChoice === 'rock' || userChoice === 'paper' || userChoice === 'scissors') {
+    if (userChoice === 'rock' || userChoice === 'paper' || userChoice === 'scissors' || userChoice === 'bomb') {
         choiceOutput.innerHTML = userChoice;
     } else {
         choiceOutput.innerHTML = 'Invalid Choice';
     }
 
-    computerOutput.innerHTML = computerChoice;
+    if (choiceOutput.innerHTML !== 'Invalid Choice') {
 
-    winner.innerHTML = getWinner(userChoice, computerChoice);
+      computerOutput.innerHTML = computerChoice;
 
-    reload.style.display = "block";
-    play.style.display = "none";
+      winner.innerHTML = getWinner(userChoice, computerChoice);
+
+      reload.style.display = "block";
+      play.style.display = "none";
+    } else {
+      winner.innerHTML = "Try again"
+
+      reload.style.display = "block";
+      play.style.display = "none";
+
+     
+    }
 });
 
 reload.addEventListener('click', () => {
     window.location.reload();
 })
+
